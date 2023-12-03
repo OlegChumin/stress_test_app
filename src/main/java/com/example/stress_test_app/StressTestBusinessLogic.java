@@ -3,6 +3,7 @@ package com.example.stress_test_app;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,8 +34,11 @@ public class StressTestBusinessLogic {
         }
 
         //StressTestUtils.saveResultToJson(threeDimensionalList);
-        Thread.sleep(1000); // Подождать 1 секунду перед завершением
-        StressTestUtils.stopExecution(executorService);
+//        Thread.sleep(1000); // Подождать 1 секунду перед завершением
+//        StressTestUtils.stopExecution(executorService);
+        CompletableFuture.runAsync(() -> StressTestUtils.saveResultToJson(threeDimensionalList))
+                .thenRun(() -> StressTestUtils.stopExecution(executorService));
+
     }
 
     private static List<List<List<Double>>> performIntensiveCalculation() {
