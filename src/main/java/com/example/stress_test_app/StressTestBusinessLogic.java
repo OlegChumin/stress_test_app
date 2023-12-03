@@ -27,7 +27,7 @@ public class StressTestBusinessLogic {
                 System.out.println("Поток " + threadId + ": Начало вычислений");
                 for (int iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
                     threeDimensionalList.addAll(performIntensiveCalculation());
-                    //consumeMemory();
+                    consumeMemory();
                 }
                 System.out.println("Поток " + threadId + ": Окончание вычислений");
             });
