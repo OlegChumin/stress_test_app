@@ -12,14 +12,15 @@ public class StressTestUtils {
     public static void stopExecution(ExecutorService executorService) {
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();
+            while (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Ожидание завершения потоков...");
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
+
 
     public static void saveResultToJson(List<List<List<Double>>> result) {
         ObjectMapper objectMapper = new ObjectMapper();

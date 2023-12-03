@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableAdminServer
 public class StressTestAppApplication {
     public static final int NUMBER_OF_ARRAYS = 5;
-    public static final int ARRAY_SIZE = 1024 * 1024;
+    public static final int ARRAY_SIZE = 128 * 128;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(StressTestAppApplication.class, args);
         long startTime = System.currentTimeMillis();
         StressTestBusinessLogic.stressTest();

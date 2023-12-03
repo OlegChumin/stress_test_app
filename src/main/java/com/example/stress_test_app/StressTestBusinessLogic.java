@@ -10,9 +10,12 @@ public class StressTestBusinessLogic {
     private static final int SIZE = 5;
     private static final int MAX_ITERATIONS = 5;
 
-    public static void stressTest() {
+    public static void stressTest() throws InterruptedException {
         int numberOfCPUCores = Runtime.getRuntime().availableProcessors();
         int numberOfThreads = numberOfCPUCores * 2;
+
+        System.out.println("Количество ядер в процессоре: " + numberOfCPUCores);
+        System.out.println("Количество потоков для создания: " + numberOfThreads);
 
         List<List<List<Double>>> threeDimensionalList = new ArrayList<>();
 
@@ -23,14 +26,15 @@ public class StressTestBusinessLogic {
                 System.out.println("Поток " + threadId + ": Начало вычислений");
                 for (int iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
                     threeDimensionalList.addAll(performIntensiveCalculation());
-                    consumeMemory();
+                    //consumeMemory();
                 }
                 System.out.println("Поток " + threadId + ": Окончание вычислений");
             });
         }
 
+        //StressTestUtils.saveResultToJson(threeDimensionalList);
+        Thread.sleep(1000); // Подождать 1 секунду перед завершением
         StressTestUtils.stopExecution(executorService);
-        StressTestUtils.saveResultToJson(threeDimensionalList);
     }
 
     private static List<List<List<Double>>> performIntensiveCalculation() {
